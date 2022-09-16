@@ -16,6 +16,10 @@ export class R {
 
     return new RData<T>(true, null, model);
   }
+
+  static fail(message: string) {
+    return new R(false, message);
+  }
 }
 
 export class RData<T> extends R {

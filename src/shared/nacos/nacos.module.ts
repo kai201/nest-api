@@ -8,7 +8,8 @@ import { ConfigService } from './config.service';
 
 class Log extends Logger {
   info(message: any, ...args: any) {
-    this.log(message, [...args]);
+    // String.prototype.toString()
+    this.log(message, args);
   }
 }
 
@@ -16,7 +17,8 @@ class Log extends Logger {
 export class NacosModule {
   static forRoot(opt: IOptions, global = true): DynamicModule {
     const namingConnction = new NacosNamingClient({
-      logger: new Log('nacos') as any,
+      // logger: new Log('nacos') as any,
+      logger: console,
       serverList: [opt.server],
       namespace: opt.namespace,
     });

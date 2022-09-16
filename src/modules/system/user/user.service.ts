@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, In, Not, Repository } from 'typeorm';
-import SysUser from 'src/model/user.model';
+import SysUser from 'src/model/sys-user.model';
 import { UpdateUser, CreateUser } from './user.model';
+import { keys } from 'lodash';
 
 @Injectable()
 export class UserService {

@@ -3,7 +3,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 export function setupSwagger(app: INestApplication): void {
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('nest title')
+    .setTitle('nest api')
     .setDescription('swagger.desc')
     .setLicense('MIT', 'https://github.com/kai201')
     // JWT鉴权

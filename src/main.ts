@@ -1,13 +1,20 @@
 import { NestFactory } from '@nestjs/core';
 import { HttpStatus, ValidationPipe, UnprocessableEntityException } from '@nestjs/common';
+import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { ValidationError } from 'class-validator';
 import { flatten } from 'lodash';
 import { AppModule } from './app.module';
 import { setupSwagger } from './setup-swagger';
+import { ApiExceptionFilter } from './common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
+    bufferLogs: true,
+    logger: ['debug'],
+  });
   app.enableCors();
+
+  app.useGlobalFilters(new ApiExceptionFilter());
 
   // validate
   app.useGlobalPipes(
@@ -25,7 +32,7 @@ async function bootstrap() {
       },
     }),
   );
-  
+
   // swagger
   setupSwagger(app);
 
