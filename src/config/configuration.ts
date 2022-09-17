@@ -13,7 +13,7 @@ export default () => {
       database: process.env.MYSQL_DATABASE || 'sys_svc_crm',
       port: process.env.MYSQL_PORT || 3306,
       synchronize: false,
-      logging: ['error'],
+      logging: ['all'],
     },
   };
 };

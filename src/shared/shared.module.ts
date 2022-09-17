@@ -24,7 +24,8 @@ import Configuration from 'src/config/configuration';
         password: configService.get<string>('database.password'),
         database: configService.get<string>('database.database'),
         synchronize: configService.get<boolean>('database.synchronize'),
-        logging: configService.get('database.logging'),
+        // logging: configService.get('database.logging') || 'all',
+        logging: 'all',
         // 自定义日志
         // logger: new TypeORMLoggerService(configService.get('database.logging'), loggerOptions),
       }),

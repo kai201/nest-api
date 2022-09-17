@@ -1,5 +1,7 @@
 import { ApiProperty, ApiExtraModels } from '@nestjs/swagger';
 
+export class SessionUser {}
+
 export class R {
   constructor(success = true, message?: string) {
     this.success = success;
