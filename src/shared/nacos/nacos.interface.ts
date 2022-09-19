@@ -12,7 +12,23 @@ export interface IOptions {
   };
 }
 
+export interface INacosOptions {
+  discovery?: IDiscovery;
+  config?: IConfig;
+}
+
 export interface IConfig {
+  enabled: boolean;
+  server: string;
+  accessKey?: string;
+  secretKey?: string;
   group: string;
   dataId: string;
+}
+
+export interface IDiscovery {
+  enabled: boolean;
+  server: string;
+  namespace: string;
+  serviceList?: [];
 }

@@ -30,6 +30,7 @@
 
 ```bash
 $ npm install
+$ pnpm i --registry https://npmjs.org
 ```
 
 ## Running the app

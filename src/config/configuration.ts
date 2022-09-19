@@ -7,10 +7,10 @@ export default () => {
       // password: process.env.MYSQL_PASSWORD || '123456',
       // database: process.env.MYSQL_DATABASE || 'sf-admin',
 
-      host: '10.0.0.10',
+      host: 'i.com',
       username: process.env.MYSQL_USERNAME || 'root',
-      password: process.env.MYSQL_PASSWORD || 'a0b14efb100a083b',
-      database: process.env.MYSQL_DATABASE || 'sys_svc_crm',
+      password: process.env.MYSQL_PASSWORD || '123456',
+      database: process.env.MYSQL_DATABASE || 'sys_crm',
       port: process.env.MYSQL_PORT || 3306,
       synchronize: false,
       logging: ['all'],

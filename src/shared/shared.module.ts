@@ -37,8 +37,11 @@ import Configuration from 'src/config/configuration';
     }),
     NacosModule.forRoot(
       {
-        server: 'i.com:8848',
-        namespace: '625c56f8-51b4-42cb-b089-54487ca5a65e',
+        discovery: {
+          enabled: true,
+          server: 'i.com:8848',
+          namespace: '625c56f8-51b4-42cb-b089-54487ca5a65e',
+        },
       },
       true,
     ),
