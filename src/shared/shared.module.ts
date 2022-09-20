@@ -1,10 +1,9 @@
 import { Global, Module } from '@nestjs/common';
-import { HttpModule } from '@nestjs/axios';
+import { HttpModule, HttpService } from '@nestjs/axios';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { NacosModule } from './nacos/nacos.module';
-
 import Configuration from 'src/config/configuration';
+import { NacosModule, NamingService } from './nacos';
 
 @Global()
 @Module({
@@ -39,8 +38,14 @@ import Configuration from 'src/config/configuration';
       {
         discovery: {
           enabled: true,
-          server: 'i.com:8848',
+          server: '10.0.6.110:8848',
           namespace: '625c56f8-51b4-42cb-b089-54487ca5a65e',
+          serviceList: {
+            oms: {
+              serviceName: 'service-oms',
+              subscribe: false,
+            },
+          },
         },
       },
       true,
@@ -48,4 +53,12 @@ import Configuration from 'src/config/configuration';
   ],
   exports: [HttpModule, NacosModule, ConfigModule, TypeOrmModule],
 })
-export class SharedModule {}
+export class SharedModule {
+  constructor(private httpService: HttpService, namingService: NamingService) {
+    httpService.axiosRef.interceptors.request.use((config) => {
+      config.url = namingService.toUrl(config.url);
+      console.log(config.url);
+      return config;
+    });
+  }
+}

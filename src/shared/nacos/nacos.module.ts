@@ -47,7 +47,7 @@ export class NacosModule {
           },
         },
       ],
-      // exports: [NamingService, ConfigService],
+      exports: [NamingService],
     };
   }
 }
