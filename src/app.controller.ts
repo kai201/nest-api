@@ -8,7 +8,7 @@ import { HttpService } from '@nestjs/axios';
 @ApiExtraModels(R)
 @Controller()
 export class AppController {
-  private logger = new Logger('AppController');
+  private logger = new Logger(AppController.name);
   constructor(
     private health: HealthCheckService,
     private database: TypeOrmHealthIndicator,
@@ -17,15 +17,15 @@ export class AppController {
 
   @Get()
   async index() {
-    // try {
-    //   const result = await this.httpService.axiosRef.get('http://oms/transaction');
-    //   this.logger.log(result.status);
-    //   return result.data;
-    // } catch (error) {
-    //   this.logger.error(error.message, error.stack);
-    // }
+    try {
+      const result = await this.httpService.axiosRef.get('http://oms/health');
+      this.logger.log(result.status);
+      return result.data;
+    } catch (error) {
+      this.logger.error(error.message, error.stack);
+    }
     // this.logger.log()
-    return 'Hello Nest!';
+    // return 'Hello Nest!';
   }
 
   @Get('health')
