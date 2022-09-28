@@ -3,7 +3,7 @@ import { HttpModule, HttpService } from '@nestjs/axios';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import Configuration from 'src/config/configuration';
-import { NacosModule, NamingService } from './nacos';
+// import { NacosModule, NamingService } from './nacos';
 
 @Global()
 @Module({
@@ -51,7 +51,7 @@ import { NacosModule, NamingService } from './nacos';
     //   true,
     // ),
   ],
-  exports: [HttpModule, NacosModule, ConfigModule, TypeOrmModule],
+  exports: [HttpModule, ConfigModule, TypeOrmModule],
 })
 export class SharedModule {
   // constructor(private httpService: HttpService, namingService: NamingService) {

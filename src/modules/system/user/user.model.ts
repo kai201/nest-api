@@ -11,12 +11,10 @@ export class CreateUser {
 
   @ApiProperty({ description: '用户昵称' })
   @IsString()
-  @IsOptional()
   nickName: string;
 
   @ApiProperty({ description: '登录账号' })
   @IsString()
-  @IsOptional()
   userName: string;
 
   @ApiProperty({ description: '用户类型（00系统用户）' })
@@ -35,7 +33,7 @@ export class CreateUser {
 
   @ApiProperty({ description: '用户性别（0男;1女 2未知）' })
   @IsOptional()
-  @IsIn([1, 2, 3])
+  @IsIn([0, 1, 2])
   gender: number;
 
   @ApiProperty({ description: '头像路径' })
@@ -44,6 +42,7 @@ export class CreateUser {
 
   @ApiProperty({ description: '帐号状态（0正常;1停用）' })
   @IsOptional()
+  @IsIn([0, 1])
   status: number;
 
   @ApiProperty({ description: '删除标志（0代表存在;2代表删除）' })

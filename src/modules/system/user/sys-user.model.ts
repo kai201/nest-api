@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { PrimaryGeneratedColumn, Column, Entity } from 'typeorm';
+import { PrimaryGeneratedColumn, Column, Entity, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity({ name: 'sys_user' })
 export default class SysUser {
@@ -67,7 +67,7 @@ export default class SysUser {
   @ApiProperty({ description: '创建者' })
   createBy: string;
 
-  @Column({ name: 'create_time', nullable: true })
+  @CreateDateColumn({ name: 'create_time' })
   @ApiProperty({ description: '创建时间' })
   createTime: Date;
 
@@ -75,7 +75,7 @@ export default class SysUser {
   @ApiProperty({ description: '更新者' })
   updateBy: string;
 
-  @Column({ name: 'update_time', nullable: true })
+  @UpdateDateColumn({ name: 'update_time' })
   @ApiProperty({ description: '更新时间' })
   updateTime: Date;
 
