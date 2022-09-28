@@ -2,7 +2,7 @@ import { ApiProperty, OmitType } from '@nestjs/swagger';
 import { PartialType } from '@nestjs/mapped-types';
 import { IsEmail, IsEnum, IsIn, IsInt, IsMobilePhone, IsOptional, IsString, Min, MinLength } from 'class-validator';
 
-import SysRole from 'src/model/sys-role.model';
+import SysRole from './sys-role.model';
 
 export class CreateRole {
   @IsString()

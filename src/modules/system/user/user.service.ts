@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Not, Repository } from 'typeorm';
-import SysUser from 'src/model/sys-user.model';
+import SysUser from './sys-user.model';
 import { UpdateUser, CreateUser } from './user.model';
 
 @Injectable()

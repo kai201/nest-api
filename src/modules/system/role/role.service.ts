@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, In, Not, Repository } from 'typeorm';
-import SysRole from 'src/model/sys-role.model';
+import SysRole from './sys-role.model';
 import { CreateRole, UpdateRole } from './role.model';
 
 @Injectable()

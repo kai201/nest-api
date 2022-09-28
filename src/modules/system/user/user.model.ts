@@ -1,9 +1,6 @@
 import { ApiProperty, OmitType } from '@nestjs/swagger';
 import { PartialType } from '@nestjs/mapped-types';
 import { IsEmail, IsEnum, IsIn, IsInt, IsMobilePhone, IsOptional, IsString, Min, MinLength } from 'class-validator';
-import SysUser from 'src/model/sys-user.model';
-
-// class W extends PartialType(OmitType(SysUser, [] as const)) {}
 
 export class CreateUser {
   @ApiProperty({ description: '上级' })

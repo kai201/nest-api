@@ -3,7 +3,7 @@ import { ApiOperation, ApiExtraModels, ApiTags } from '@nestjs/swagger';
 import { R, ApiResResponse } from 'src/common';
 
 import { UserService } from './user.service';
-import SysUser from 'src/model/sys-user.model';
+import SysUser from './sys-user.model';
 import { UpdateUser, CreateUser } from './user.model';
 
 @ApiTags('SysUser')

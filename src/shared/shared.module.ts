@@ -34,31 +34,31 @@ import { NacosModule, NamingService } from './nacos';
       timeout: 5000,
       maxRedirects: 5,
     }),
-    NacosModule.forRoot(
-      {
-        discovery: {
-          enabled: true,
-          server: '10.0.6.110:8848',
-          namespace: '625c56f8-51b4-42cb-b089-54487ca5a65e',
-          serviceList: {
-            oms: {
-              serviceName: 'service-oms',
-              subscribe: false,
-            },
-          },
-        },
-      },
-      true,
-    ),
+    // NacosModule.forRoot(
+    //   {
+    //     discovery: {
+    //       enabled: true,
+    //       server: 'i.com:8848',
+    //       namespace: '625c56f8-51b4-42cb-b089-54487ca5a65e',
+    //       serviceList: {
+    //         oms: {
+    //           serviceName: 'service-oms',
+    //           subscribe: false,
+    //         },
+    //       },
+    //     },
+    //   },
+    //   true,
+    // ),
   ],
   exports: [HttpModule, NacosModule, ConfigModule, TypeOrmModule],
 })
 export class SharedModule {
-  constructor(private httpService: HttpService, namingService: NamingService) {
-    httpService.axiosRef.interceptors.request.use((config) => {
-      config.url = namingService.toUrl(config.url);
-      console.log(config.url);
-      return config;
-    });
-  }
+  // constructor(private httpService: HttpService, namingService: NamingService) {
+  //   httpService.axiosRef.interceptors.request.use((config) => {
+  //     config.url = namingService.toUrl(config.url);
+  //     console.log(config.url);
+  //     return config;
+  //   });
+  // }
 }
