@@ -1,15 +1,34 @@
 import { Injectable } from '@nestjs/common';
+import { isEmpty } from 'lodash';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Not, Repository } from 'typeorm';
-import SysUser from './sys-user.model';
-import { UpdateUser, CreateUser, QueryUser } from './user.model';
+import { In, Not, Repository, FindOptionsWhere, Like, FindOptionsOrder } from 'typeorm';
+import { UpdateUser, CreateUser, QueryUser, SysUser } from './user.model';
+import { FETCH_LIST_PAGE, FETCH_LIST_PAGESIZE } from 'src/common';
 
+/**
+ * 用户服务
+ */
 @Injectable()
 export class UserService {
   constructor(@InjectRepository(SysUser) private userAccessor: Repository<SysUser>) {}
 
+  /**
+   * 分页查询
+   * @param params
+   * @returns 分页数据
+   */
   async list(params: QueryUser) {
-    return await this.userAccessor.find({where:{}});
+    const { current = FETCH_LIST_PAGE, pageSize = FETCH_LIST_PAGESIZE, userName, nikeName } = params;
+
+    const skip = (current - 1) * pageSize;
+
+    let where: FindOptionsWhere<SysUser> = {};
+
+    if (!isEmpty(userName)) where = Object.assign(where, { nickName: Like(`${userName}%`) });
+
+    let orderBy: FindOptionsOrder<SysUser> = { createTime: 'DESC' };
+
+    return await this.userAccessor.findAndCount({ where, order: orderBy, skip, take: pageSize });
   }
 
   async findOne(userId: number) {

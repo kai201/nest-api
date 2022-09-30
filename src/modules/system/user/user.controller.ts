@@ -3,8 +3,7 @@ import { ApiOperation, ApiExtraModels, ApiTags } from '@nestjs/swagger';
 import { R, ApiResResponse } from 'src/common';
 
 import { UserService } from './user.service';
-import SysUser from './sys-user.model';
-import { UpdateUser, CreateUser, QueryUser } from './user.model';
+import { SysUser, UpdateUser, CreateUser, QueryUser } from './user.model';
 
 @ApiTags('SysUser')
 @ApiExtraModels(SysUser)
@@ -15,9 +14,9 @@ export class UserController {
   @ApiOperation({ summary: '获取用户列表' })
   @ApiResResponse(SysUser, true)
   async list(@Query() params: QueryUser): Promise<R> {
-    const result = await this.userService.list(params);
+    const [result, total] = await this.userService.list(params);
 
-    return R.success(result);
+    return R.success(result, total);
   }
 
   @Get(':id')

@@ -1,8 +1,7 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiExtraModels, ApiTags } from '@nestjs/swagger';
 import { R, ApiResResponse } from 'src/common';
-import SysRole from './sys-role.model';
-import { CreateRole, UpdateRole } from './role.model';
+import { SysRole, CreateRole, UpdateRole } from './role.model';
 
 import { RoleService } from './role.service';
 
