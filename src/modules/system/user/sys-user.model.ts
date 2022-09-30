@@ -67,7 +67,7 @@ export default class SysUser {
   @ApiProperty({ description: '创建者' })
   createBy: string;
 
-  @CreateDateColumn({ name: 'create_time' })
+  @CreateDateColumn({ name: 'create_time', type: 'timestamp' })
   @ApiProperty({ description: '创建时间' })
   createTime: Date;
 
@@ -75,7 +75,7 @@ export default class SysUser {
   @ApiProperty({ description: '更新者' })
   updateBy: string;
 
-  @UpdateDateColumn({ name: 'update_time' })
+  @UpdateDateColumn({ name: 'update_time', type: 'timestamp' })
   @ApiProperty({ description: '更新时间' })
   updateTime: Date;
 

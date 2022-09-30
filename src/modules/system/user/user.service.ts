@@ -2,14 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Not, Repository } from 'typeorm';
 import SysUser from './sys-user.model';
-import { UpdateUser, CreateUser } from './user.model';
+import { UpdateUser, CreateUser, QueryUser } from './user.model';
 
 @Injectable()
 export class UserService {
   constructor(@InjectRepository(SysUser) private userAccessor: Repository<SysUser>) {}
 
-  async list() {
-    return await this.userAccessor.find({});
+  async list(params: QueryUser) {
+    return await this.userAccessor.find({where:{}});
   }
 
   async findOne(userId: number) {

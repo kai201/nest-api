@@ -1,6 +1,13 @@
 import { ApiProperty, OmitType } from '@nestjs/swagger';
 import { PartialType } from '@nestjs/mapped-types';
 import { IsEmail, IsEnum, IsIn, IsInt, IsMobilePhone, IsOptional, IsString, Min, MinLength } from 'class-validator';
+import { QueryPagination } from 'src/common';
+
+export class QueryUser extends QueryPagination {
+  @ApiProperty({ required: false, description: '关键字' })
+  @IsOptional()
+  keyword?: string;
+}
 
 export class CreateUser {
   @ApiProperty({ description: '上级' })

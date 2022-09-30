@@ -1,4 +1,6 @@
 import { ApiProperty, ApiExtraModels } from '@nestjs/swagger';
+import { IsOptional, IsNumber } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class SessionUser {}
 
@@ -23,4 +25,18 @@ export class R<T = any> {
   static fail(message: string) {
     return new R(false, message);
   }
+}
+
+export class QueryPagination {
+  @ApiProperty({ required: false, description: '数量' })
+  @Type(() => Number)
+  @IsOptional()
+  @IsNumber()
+  pageSize?: number;
+
+  @ApiProperty({ required: false, description: '页码' })
+  @Type(() => Number)
+  @IsOptional()
+  @IsNumber()
+  current?: number;
 }
