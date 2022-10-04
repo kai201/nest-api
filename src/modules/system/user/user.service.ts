@@ -24,7 +24,8 @@ export class UserService {
 
     let where: FindOptionsWhere<SysUser> = {};
 
-    if (!isEmpty(userName)) where = Object.assign(where, { nickName: Like(`${userName}%`) });
+    if (!isEmpty(userName)) where = Object.assign(where, { userName: Like(`${userName}%`) });
+    if (!isEmpty(nikeName)) where = Object.assign(where, { nickName: Like(`${nikeName}%`) });
 
     let orderBy: FindOptionsOrder<SysUser> = { createTime: 'DESC' };
 
