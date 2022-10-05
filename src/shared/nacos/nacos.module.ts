@@ -34,12 +34,12 @@ export class NacosModule {
       global,
       module: NacosModule,
       providers: [
-        // {
-        //   provide: ConfigService,
-        //   useFactory() {
-        //     return new ConfigService(configConnction);
-        //   },
-        // },
+        {
+          provide: ConfigService,
+          useFactory() {
+            return new ConfigService(opt.config);
+          },
+        },
         {
           provide: NamingService,
           useFactory() {
