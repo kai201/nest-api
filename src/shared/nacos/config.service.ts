@@ -16,6 +16,7 @@ export class ConfigService<K = Record<string, unknown>, WasValidated extends boo
 
   constructor(private opt: IConfig) {
     const { accessKey = '', secretKey = '', server, namespace } = this.opt;
+    this.logger.log(opt);
     this.conn = new NacosConfigClient({ serverAddr: server, namespace, accessKey, secretKey });
   }
 
@@ -32,7 +33,7 @@ export class ConfigService<K = Record<string, unknown>, WasValidated extends boo
 
   get<T = any>(propertyPath: KeyOf<K>): T {
     const processValue = get(this.data, propertyPath);
-    // console.log(propertyPath, processValue);
+    console.log(propertyPath, processValue);
     return processValue as unknown as T;
   }
 }

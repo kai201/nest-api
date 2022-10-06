@@ -18,7 +18,7 @@ export class AppController {
   @Get()
   async index() {
     try {
-      const result = await this.httpService.axiosRef.get('http://oms/health');
+      const result = await this.httpService.axiosRef.get('http://cms/health');
       this.logger.log(result.status);
       return result.data;
     } catch (error) {

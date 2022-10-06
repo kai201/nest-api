@@ -19,7 +19,7 @@ export class NamingService implements OnModuleInit, OnModuleDestroy {
   constructor(private opt: IDiscovery) {
     if (!opt.enabled) return;
     this.conn = new NacosNamingClient({
-      logger: this.logger as any,
+      logger: console,
       serverList: [opt.server],
       namespace: opt.namespace,
     });
