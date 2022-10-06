@@ -4,15 +4,25 @@ import { NacosNamingClient } from 'nacos';
 import { IDiscovery, NacosInstance } from './nacos.interface';
 import { Weight } from './nacos.weight';
 
+class Log extends Logger {
+  info(message: any, ...args: any) {
+    // String.prototype.toString()
+    this.log(message, args);
+  }
+}
 export class NamingService implements OnModuleInit, OnModuleDestroy {
-  private logger = new Logger('[nacos-naming]');
+  private logger = new Log('[nacos-naming]');
   private _svcMap = new Map<string, Weight>();
 
   private conn: NacosNamingClient;
 
   constructor(private opt: IDiscovery) {
     if (!opt.enabled) return;
-    this.conn = new NacosNamingClient({ logger: console, serverList: [opt.server], namespace: opt.namespace });
+    this.conn = new NacosNamingClient({
+      logger: this.logger as any,
+      serverList: [opt.server],
+      namespace: opt.namespace,
+    });
   }
 
   onModuleDestroy() {

@@ -20,6 +20,7 @@ export interface INacosOptions {
 export interface IConfig {
   enabled: boolean;
   server: string;
+  namespace?: string;
   accessKey?: string;
   secretKey?: string;
   group: string;
