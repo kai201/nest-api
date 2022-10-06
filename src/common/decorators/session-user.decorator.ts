@@ -13,13 +13,13 @@ import { SessionUser } from '../class/api-res.class';
  * ```
  */
 export const User = createParamDecorator((data: undefined | keyof SessionUser, ctx: ExecutionContext) => {
-  const request = ctx.switchToHttp().getRequest();
+  const { sessionUser }: { sessionUser: SessionUser } = ctx.switchToHttp().getRequest();
 
-  const user = request['user'];
+  // const user = request['user'];
 
-  if (data && typeof data === 'string' && typeof user === 'object') {
-    return user[data];
+  if (data && typeof data === 'string' && typeof sessionUser === 'object') {
+    return sessionUser[data];
   } else {
-    return user as SessionUser;
+    return sessionUser;
   }
 });

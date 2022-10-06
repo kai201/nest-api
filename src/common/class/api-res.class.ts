@@ -2,7 +2,9 @@ import { ApiProperty, ApiExtraModels } from '@nestjs/swagger';
 import { IsOptional, IsNumber } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class SessionUser {}
+export class SessionUser {
+  [key: string]: any;
+}
 
 export class R<T = any> {
   constructor(success = true, message?: string, data?: T, total?: number) {
