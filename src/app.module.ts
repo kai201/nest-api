@@ -8,7 +8,7 @@ import { SystemModule } from 'src/modules/system/system.module';
 
 import { AppController } from './app.controller';
 @Module({
-  imports: [TerminusModule, AdminModule, SharedModule, SystemModule],
+  imports: [SharedModule, TerminusModule, AdminModule, SystemModule],
   controllers: [AppController],
   providers: [],
 })

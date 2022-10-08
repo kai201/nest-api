@@ -1,5 +1,5 @@
 import { Inject, Injectable, Logger, OnApplicationBootstrap, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
-import { get, has, set, isEmpty } from 'lodash';
+import { get, differenceWith, isEqual, isEmpty } from 'lodash';
 import { load } from 'js-yaml';
 import { NacosConfigClient } from 'nacos';
 import { IConfig } from './nacos.interface';
@@ -13,10 +13,11 @@ export class ConfigService<K = Record<string, unknown>, WasValidated extends boo
   private logger = new Logger('[nacos-config]');
   private conn: NacosConfigClient;
   private data = {};
+  private backup = {};
 
   constructor(private opt: IConfig) {
     const { accessKey = '', secretKey = '', server, namespace } = this.opt;
-    this.logger.log(opt);
+    // this.logger.log(opt);
     this.conn = new NacosConfigClient({ serverAddr: server, namespace, accessKey, secretKey });
   }
 
@@ -29,11 +30,18 @@ export class ConfigService<K = Record<string, unknown>, WasValidated extends boo
     await this.conn.getConfig(dataId, group).then((conf) => {
       if (!isEmpty(conf)) this.data = Object.assign(this.data, load(conf));
     });
+
+    this.conn.subscribe({ dataId, group }, (conf: any) => {
+      this.backup = this.data;
+      this.data = load(conf);
+
+      console.log('subscribe', differenceWith([this.backup], [this.data], isEqual));
+    });
   }
 
   get<T = any>(propertyPath: KeyOf<K>): T {
     const processValue = get(this.data, propertyPath);
-    console.log(propertyPath, processValue);
     return processValue as unknown as T;
   }
+  watch<T extends any>(path: string, callback: (data: T) => void): void {}
 }

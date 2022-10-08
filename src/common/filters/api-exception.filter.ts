@@ -25,6 +25,8 @@ export class ApiExceptionFilter implements ExceptionFilter {
     }
     const result = R.fail(message);
 
+    console.log(exception);
+
     response.status(status).send(result);
   }
 }

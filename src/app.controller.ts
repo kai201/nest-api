@@ -1,5 +1,6 @@
 import { Controller, Get, Logger } from '@nestjs/common';
-import { HealthCheck, HealthCheckService, TypeOrmHealthIndicator } from '@nestjs/terminus';
+import { HealthCheck, HealthCheckService, TypeOrmHealthIndicator, MicroserviceHealthIndicator } from '@nestjs/terminus';
+import { InjectRedis, Redis } from '@nestjs-modules/ioredis';
 import { ApiExtraModels, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { R } from 'src/common';
 import { HttpService } from '@nestjs/axios';
@@ -10,6 +11,7 @@ import { HttpService } from '@nestjs/axios';
 export class AppController {
   private logger = new Logger(AppController.name);
   constructor(
+    @InjectRedis() private redis: Redis,
     private health: HealthCheckService,
     private database: TypeOrmHealthIndicator,
     private httpService: HttpService,
