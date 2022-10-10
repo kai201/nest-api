@@ -14,6 +14,7 @@ import configuration, { nacos } from 'src/config/configuration';
       imports: [NacosModule],
       useFactory: (configService: ConfigService) => ({
         ...configService.get('database'),
+        // ...configuration().database,
         keepConnectionAlive: true,
         autoLoadEntities: true,
         logging: 'all',
@@ -24,8 +25,8 @@ import configuration, { nacos } from 'src/config/configuration';
       },
       inject: [ConfigService],
     }),
-    RedisModule.forRoot({ config: { host: '10.0.6.12', db: 1 } }),
     HttpModule.register({ timeout: 5000, maxRedirects: 5 }),
+    RedisModule.forRoot({ config: { host: 'i.com', db: 1 } }),
     NacosModule.forRoot(nacos, true),
   ],
   exports: [HttpModule, NacosModule, TypeOrmModule, RedisModule],

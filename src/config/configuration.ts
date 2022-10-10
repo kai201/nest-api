@@ -22,15 +22,15 @@ export default () => {
 export const nacos = {
   config: {
     enabled: true,
-    server: '10.0.6.110:8848',
-    namespace: '625c56f8-51b4-42cb-b089-54487ca5a65e',
+    server: 'i.com:8848',
+    // namespace: '625c56f8-51b4-42cb-b089-54487ca5a65e',
     group: 'DEFAULT_GROUP',
     dataId: 'applet',
   },
   discovery: {
     enabled: true,
-    server: '10.0.6.110:8848',
-    namespace: '625c56f8-51b4-42cb-b089-54487ca5a65e',
+    server: 'i.com:8848',
+    // namespace: '625c56f8-51b4-42cb-b089-54487ca5a65e',
     serviceList: {
       cms: {
         serviceName: 'service-cms',

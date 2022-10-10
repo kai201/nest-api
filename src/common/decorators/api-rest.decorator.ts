@@ -12,7 +12,7 @@ const baseTypeNames = ['String', 'Number', 'Boolean'];
  * @param isArray data 是否是数组
  * @param isPager 设置为 true, 则 data 类型为 { list, total } , false data 类型是纯数组
  */
-export const ApiResResponse = <TModel extends Type<any>>(model?: TModel, isArray?: boolean, isPager?: boolean) => {
+export const ApiResResponse = <TModel extends Type<any>>(model?: TModel, isArray?: boolean) => {
   let items = null;
   if (model && baseTypeNames.includes(model.name)) {
     items = { type: model.name.toLocaleLowerCase() };
@@ -20,21 +20,7 @@ export const ApiResResponse = <TModel extends Type<any>>(model?: TModel, isArray
     items = { $ref: getSchemaPath(model) };
   }
   let prop = null;
-  if (isArray && isPager) {
-    prop = {
-      type: 'object',
-      properties: {
-        list: {
-          type: 'array',
-          items,
-        },
-        total: {
-          type: 'number',
-          default: 0,
-        },
-      },
-    };
-  } else if (isArray) {
+  if (isArray) {
     prop = {
       type: 'array',
       items,
@@ -42,9 +28,6 @@ export const ApiResResponse = <TModel extends Type<any>>(model?: TModel, isArray
   } else if (model) {
     prop = items;
   }
-  // else {
-  //    prop = { type: 'null', default: null };
-  // }
   return applyDecorators(
     ApiOkResponse({
       schema: {

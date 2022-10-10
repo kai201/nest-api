@@ -30,7 +30,7 @@ export class ConfigService<K = Record<string, unknown>, WasValidated extends boo
     await this.conn.getConfig(dataId, group).then((conf) => {
       if (!isEmpty(conf)) this.data = Object.assign(this.data, load(conf));
     });
-
+    console.log(this.data);
     this.conn.subscribe({ dataId, group }, (conf: any) => {
       this.backup = this.data;
       this.data = load(conf);

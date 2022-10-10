@@ -12,7 +12,7 @@ export class UserController {
   constructor(private userService: UserService) {}
   @Get()
   @ApiOperation({ summary: '获取用户列表' })
-  @ApiResResponse(SysUser, true, true)
+  @ApiResResponse(SysUser, true)
   async list(@Query() params: QueryUser): Promise<R> {
     const [result, total] = await this.userService.list(params);
 

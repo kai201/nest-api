@@ -1,6 +1,6 @@
 export interface IOptions {
   server: string;
-  namespace: string;
+  namespace?: string;
   accessKey?: string;
   secretKey?: string;
   logger?: typeof console;
@@ -30,7 +30,7 @@ export interface IConfig {
 export interface IDiscovery {
   enabled: boolean;
   server: string;
-  namespace: string;
+  namespace?: string;
   serviceList?: ServerList;
 }
 
