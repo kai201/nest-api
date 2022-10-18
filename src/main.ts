@@ -16,11 +16,12 @@ async function bootstrap() {
 
   app.useGlobalFilters(new ApiExceptionFilter());
 
-  // validate
+  // 全局验证
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
       whitelist: true,
+      enableDebugMessages: true, // 开发环境
       forbidNonWhitelisted: true,
       errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
       exceptionFactory: (errors: ValidationError[]) => {

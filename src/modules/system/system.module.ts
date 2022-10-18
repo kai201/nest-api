@@ -8,10 +8,14 @@ import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
 import { RoleController } from './role/role.controller';
 import { RoleService } from './role/role.service';
+import { Customer } from './customer/model';
+import { CustomerService } from './customer/service';
+import { CustomerController } from './customer/controller';
+
 @SetMetadata(MODULE_PATH, 'sys')
 @Module({
-  imports: [TypeOrmModule.forFeature([SysUser, SysRole])],
-  controllers: [UserController, RoleController],
-  providers: [UserService, RoleService],
+  imports: [TypeOrmModule.forFeature([SysUser, SysRole, Customer])],
+  controllers: [UserController, RoleController, CustomerController],
+  providers: [UserService, RoleService, CustomerService],
 })
 export class SystemModule {}

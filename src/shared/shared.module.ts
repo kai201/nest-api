@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 // import { ConfigModule, ConfigService } from '@nestjs/config';
 import { NacosModule, NamingService, ConfigService } from './nacos';
-import configuration, { nacos } from 'src/config/configuration';
+import { nacos } from 'src/config/configuration';
 
 @Global()
 @Module({
