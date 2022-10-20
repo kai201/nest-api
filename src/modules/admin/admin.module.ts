@@ -1,3 +1,10 @@
 import { Module } from '@nestjs/common';
-@Module({})
-export class AdminModule {}
+import { SystemModule } from 'src/modules/system/system.module';
+import { UserService } from '../system/user/user.service';
+
+@Module({
+  imports: [SystemModule],
+})
+export class AdminModule {
+  constructor(sysUserService: UserService) {}
+}

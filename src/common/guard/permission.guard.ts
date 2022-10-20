@@ -9,6 +9,8 @@ export class PermissionGuard implements CanActivate {
     const handler = context.getHandler();
 
     const permissions = this.reflector.get<string[]>('permissions', handler);
-    throw new Error('Method not implemented.');
+    // throw new Error('Method not implemented.');
+    console.log(permissions);
+    return true;
   }
 }
