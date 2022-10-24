@@ -1,5 +1,6 @@
 import { Inject, Injectable, Optional, OnModuleInit, OnModuleDestroy, Logger } from '@nestjs/common';
 import { forIn } from 'lodash';
+import { format } from 'util';
 import { NacosNamingClient } from 'nacos';
 import { IDiscovery, NacosInstance } from './nacos.interface';
 import { Weight } from './nacos.weight';
@@ -7,7 +8,7 @@ import { Weight } from './nacos.weight';
 class Log extends Logger {
   info(message: any, ...args: any) {
     // String.prototype.toString()
-    this.log(message, args);
+    this.log(format(message, args));
   }
 }
 export class NamingService implements OnModuleInit, OnModuleDestroy {
@@ -19,7 +20,7 @@ export class NamingService implements OnModuleInit, OnModuleDestroy {
   constructor(private opt: IDiscovery) {
     if (!opt.enabled) return;
     this.conn = new NacosNamingClient({
-      logger: console,
+      logger: this.logger as any,
       serverList: [opt.server],
       namespace: opt.namespace,
     });
