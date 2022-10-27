@@ -7,4 +7,5 @@ export declare type WxModuleOptions = {
 
 export interface WxModuleAsyncOptions extends Pick<ModuleMetadata, 'imports'> {
   inject?: any[];
+  useFactory?: (...args: any[]) => Promise<WxModuleOptions> | WxModuleOptions;
 }

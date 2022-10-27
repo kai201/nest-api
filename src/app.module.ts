@@ -11,5 +11,6 @@ import { AppController } from './app.controller';
   imports: [SharedModule, TerminusModule, AdminModule, SystemModule],
   controllers: [AppController],
   providers: [],
+  exports:[]
 })
 export class AppModule {}

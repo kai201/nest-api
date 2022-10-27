@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query, ParseArrayOptions, ParseArrayPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, ParseArrayOptions, ParseArrayPipe, Ip } from '@nestjs/common';
 import { ApiOperation, ApiExtraModels, ApiTags } from '@nestjs/swagger';
 import { R, ApiResResponse } from 'src/common';
 import { Customer, QueryCustomer, CreateCustomer, UpdateCustomer } from './model';

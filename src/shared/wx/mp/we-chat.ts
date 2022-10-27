@@ -9,24 +9,7 @@ export class MPWeChat implements WeChatSession {
   private cache: ICache = Kits.cache;
   private http: HttpDelegate = Kits.http;
 
-  // 开发者ID
-  // wxeb1ad16c29ae0d8c
-  appId: string;
-
-  // 开发者密码(AppSecret)
-  // bba025b2ff83ec5f7e2417b257239124
-  appScrect: string;
-
-  ticket: string;
-
-  // 令牌(Token)
-  token: string;
-
-  // 消息加解密密钥
-  encodingAesKey: string;
-
-  // 消息加解密方式
-  encryptMessage: boolean;
+  constructor(private options: WxOptions) {}
 
   /**
    *  获取 acces_token
@@ -52,7 +35,7 @@ export class MPWeChat implements WeChatSession {
    */
   private async getAvailableAccessToken(): Promise<AccessToken | undefined> {
     let result: AccessToken | undefined;
-    let accessTokenJson: string = await this.cache.get(this.appId);
+    let accessTokenJson: string = await this.cache.get(this.options.appId);
     if (accessTokenJson) {
       result = AccessToken.new(accessTokenJson);
     }
@@ -67,12 +50,12 @@ export class MPWeChat implements WeChatSession {
    *  获取新的 acces_token 并设置缓存
    */
   public async refreshAccessToken(): Promise<AccessToken> {
-    let u = format(url, this.appId, this.appScrect);
+    let u = format(url, this.options.appId, this.options.appScrect);
     let data = await this.http.httpGet(u);
     if (data) {
       data = JSON.stringify(data);
       let accessToken: AccessToken = AccessToken.new(data);
-      this.cache.set(this.appId, accessToken.json);
+      this.cache.set(this.options.appId, accessToken.json);
       return accessToken;
     } else {
       throw new Error('获取accessToken异常');
@@ -86,7 +69,9 @@ export class OpenWeChat implements WeChatSession {
   private cache: ICache = Kits.cache;
   private http: HttpDelegate = Kits.http;
 
-  constructor(private options: WxOptions) {}
+  constructor(public readonly options: WxOptions) {}
+
+  setTicket(ticket: string) {}
 
   public async getAccessToken(): Promise<AccessToken> {
     let accessToken: AccessToken | undefined = await this.getAvailableAccessToken();
@@ -103,13 +88,14 @@ export class OpenWeChat implements WeChatSession {
   }
 
   public async refreshAccessToken(): Promise<AccessToken> {
-    let data = await this.http.httpPost(getComponentTokenUrl, JSON.stringify({ component_appid: this.options.appId, component_appsecret: this.options.appScrect, component_verify_ticket: this.options.ticket }));
+    let { appId, appScrect, ticket } = this.options;
+    let data = await this.http.httpPost(getComponentTokenUrl, JSON.stringify({ component_appid: appId, component_appsecret: appScrect, component_verify_ticket: ticket }));
     if (data) {
       data = JSON.stringify(data);
 
       let accessToken: AccessToken = AccessToken.new(data, AccessTokenType.COMPONENT_TOKEN);
 
-      this.cache.set(this.options.appId, accessToken.json);
+      this.cache.set(appId, accessToken.json);
 
       return accessToken;
     } else {
@@ -124,7 +110,8 @@ export class OpenWeChat implements WeChatSession {
   private async getAvailableAccessToken(): Promise<AccessToken | undefined> {
     let result: AccessToken | undefined;
 
-    let accessTokenJson: string = await this.cache.get(this.options.appId);
+    let { appId, appScrect, ticket } = this.options;
+    let accessTokenJson: string = await this.cache.get(appId);
     if (accessTokenJson) {
       result = AccessToken.new(accessTokenJson, AccessTokenType.COMPONENT_TOKEN);
     }
@@ -159,7 +146,7 @@ export class OpenAuthWeChat implements WeChatSession {
     let url = format(authUrl, this.session.getAccessToken());
     let { appId, refreshToken } = this.accessToken;
 
-    let data = await Kits.http.httpPost(url, JSON.stringify({ component_appid: this.session.appId, authorizer_appid: appId, authorizer_refresh_token: refreshToken }));
+    let data = await Kits.http.httpPost(url, JSON.stringify({ component_appid: this.session.options.appId, authorizer_appid: appId, authorizer_refresh_token: refreshToken }));
 
     if (data) {
       data = JSON.stringify(data);
@@ -167,7 +154,7 @@ export class OpenAuthWeChat implements WeChatSession {
 
       this.accessToken = Object.assign(this.accessToken, accessToken);
 
-      Kits.cache.set(this.session.appId.concat('_').concat(appId), data);
+      Kits.cache.set(this.session.options.appId.concat('_').concat(appId), data);
 
       return this.accessToken;
     } else {
@@ -182,7 +169,7 @@ export class OpenAuthWeChat implements WeChatSession {
    */
   private async getAvailableAccessToken(): Promise<AccessToken | undefined> {
     let result: AccessToken | undefined;
-    let accessTokenJson: string = await Kits.cache.get(this.session.appId.concat('_').concat(this.appId));
+    let accessTokenJson: string = await Kits.cache.get(this.session.options.appId.concat('_').concat(this.accessToken.appId));
     if (accessTokenJson) {
       result = AccessToken.new(accessTokenJson, AccessTokenType.AUTHORIZER_TOKEN);
     }
